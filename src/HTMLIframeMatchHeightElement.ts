@@ -1,3 +1,13 @@
+/**
+ * This custom element must not have any element as child other than their own iframe element.
+ * The children of this custom element must not be empty.
+ * @param elm - The custom element
+ */
+const init = function (elm: HTMLIframeMatchHeightElement) {
+  elm.textContent = '';
+  elm.append(elm.iframe);
+};
+
 export default class HTMLIframeMatchHeightElement extends HTMLElement {
   iframe: HTMLIFrameElement = document.createElement('iframe');
 
@@ -34,6 +44,10 @@ export default class HTMLIframeMatchHeightElement extends HTMLElement {
   get contentDocument() { return this.iframe.contentDocument }
 
   get contentWindow() { return this.iframe.contentWindow }
+
+  connectedCallback() {
+    init(this);
+  }
 }
 
 // コンストラクタ名が難読化で変わってしまうため
