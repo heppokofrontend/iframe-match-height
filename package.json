@@ -48,6 +48,6 @@
     "prestart": "git config commit.template .gitmessage",
     "start": "tsc -w",
     "test": "jest --coverage",
-    "test:watch": "jest --watch --caverage"
+    "test:watch": "jest --watch --coverage"
   }
 }
