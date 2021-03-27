@@ -1,5 +1,3 @@
-import CustomElementConstructor from './HTMLIframeMatchHeightElement';
+import HTMLIframeMatchHeightElement from './HTMLIframeMatchHeightElement';
 
-customElements.define('iframe-match-height', CustomElementConstructor);
-
-export const HTMLIframeMatchHeightElement = CustomElementConstructor;
+customElements.define('iframe-match-height', HTMLIframeMatchHeightElement);
