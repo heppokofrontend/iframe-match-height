@@ -9,7 +9,8 @@ const init = function (elm: HTMLIframeMatchHeightElement) {
 
   if (
     elm.iframe.src &&
-    elm.iframe.contentWindow
+    elm.iframe.contentWindow &&
+    elm.host
   ) {
     elm.iframe.contentWindow.postMessage({
       action: 'iframe-match-height-reflow',
@@ -44,7 +45,7 @@ export default class HTMLIframeMatchHeightElement extends HTMLElement {
     try {
       return new URL(this.src).hostname;
     } catch {
-      return '';
+      return null;
     }
   }
 
