@@ -8,6 +8,12 @@ const init = function (elm: HTMLIframeMatchHeightElement) {
   elm.append(elm.iframe);
 };
 
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    init(mutation.target as HTMLIframeMatchHeightElement);
+  });
+});
+
 export default class HTMLIframeMatchHeightElement extends HTMLElement {
   iframe: HTMLIFrameElement = document.createElement('iframe');
 
@@ -47,6 +53,12 @@ export default class HTMLIframeMatchHeightElement extends HTMLElement {
 
   connectedCallback() {
     init(this);
+  }
+
+  constructor() {
+    super();
+
+    observer.observe(this, { childList: true });
   }
 }
 
