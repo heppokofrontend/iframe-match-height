@@ -61,7 +61,7 @@ export default class HTMLIframeMatchHeightElement extends HTMLElement {
   }
 }
 
-// コンストラクタ名が難読化で変わってしまうため
+// Prevent uglify from changing the name of the constructor.
 Object.defineProperty(HTMLIframeMatchHeightElement, 'name', {
   value: 'HTMLIframeMatchHeightElement',
 });
