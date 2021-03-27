@@ -6,6 +6,15 @@
 const init = function (elm: HTMLIframeMatchHeightElement) {
   elm.textContent = '';
   elm.append(elm.iframe);
+
+  if (
+    elm.iframe.src &&
+    elm.iframe.contentWindow
+  ) {
+    elm.iframe.contentWindow.postMessage({
+      action: 'iframe-match-height-reflow',
+    }, elm.host);
+  }
 };
 
 const observer = new MutationObserver(mutations => {
@@ -16,6 +25,28 @@ const observer = new MutationObserver(mutations => {
 
 export default class HTMLIframeMatchHeightElement extends HTMLElement {
   iframe: HTMLIFrameElement = document.createElement('iframe');
+
+  private onmessage = (e: MessageEvent) => {
+    const {data} = e;
+
+    if (
+      !data ||
+      data.whoAmI !== this.src
+    ) {
+      return;
+    }
+
+    this.iframe.width = `${data.width}px`;
+    this.iframe.height = `${data.height}px`;
+  }
+
+  get host() {
+    try {
+      return new URL(this.src).hostname;
+    } catch {
+      return '';
+    }
+  }
 
   get src() { return this.iframe.src }
   set src(path: string) { this.iframe.src = path }
@@ -59,6 +90,7 @@ export default class HTMLIframeMatchHeightElement extends HTMLElement {
     super();
 
     observer.observe(this, { childList: true });
+    window.addEventListener('message', this.onmessage);
   }
 }
 
