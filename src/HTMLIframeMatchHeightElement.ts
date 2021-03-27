@@ -13,6 +13,10 @@ const init = function (elm: HTMLIframeMatchHeightElement) {
     host: window.location.host,
   };
 
+  if (elm.firstElementChild === elm.lastElementChild) {
+    return;
+  }
+
   elm.textContent = '';
   elm.append(elm.iframe);
 
