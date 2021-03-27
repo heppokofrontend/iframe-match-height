@@ -8,14 +8,17 @@
  * @param elm - The custom element
  */
 const init = function (elm: HTMLIframeMatchHeightElement) {
+  if (
+    elm.firstElementChild &&
+    elm.firstElementChild === elm.lastElementChild
+  ) {
+    return;
+  }
+
   const data: sendData = {
     action: 'iframe-match-height-reflow',
     host: window.location.host,
   };
-
-  if (elm.firstElementChild === elm.lastElementChild) {
-    return;
-  }
 
   elm.textContent = '';
   elm.append(elm.iframe);
