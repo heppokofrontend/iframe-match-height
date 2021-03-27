@@ -4,6 +4,11 @@
  * @param elm - The custom element
  */
 const init = function (elm: HTMLIframeMatchHeightElement) {
+  const data: sendData = {
+    action: 'iframe-match-height-reflow',
+    host: window.location.host,
+  };
+
   elm.textContent = '';
   elm.append(elm.iframe);
 
@@ -12,9 +17,7 @@ const init = function (elm: HTMLIframeMatchHeightElement) {
     elm.iframe.contentWindow &&
     elm.host
   ) {
-    elm.iframe.contentWindow.postMessage({
-      action: 'iframe-match-height-reflow',
-    }, elm.host);
+    elm.iframe.contentWindow.postMessage(data, elm.host);
   }
 };
 
@@ -28,10 +31,11 @@ export default class HTMLIframeMatchHeightElement extends HTMLElement {
   iframe: HTMLIFrameElement = document.createElement('iframe');
 
   private onmessage = (e: MessageEvent) => {
-    const {data} = e;
+    const data:receiveData = e.data;
 
     if (
       !data ||
+      data.action !== 'iframe-match-height-resize',
       data.whoAmI !== this.iframe.src
     ) {
       return;
