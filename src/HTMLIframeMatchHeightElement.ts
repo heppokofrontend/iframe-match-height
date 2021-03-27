@@ -1,3 +1,7 @@
+// TODO: 同一ドメインのときはpostMessageを使わないのを基本にする
+// TODO: iframeがページ遷移したときの動き（onload）
+// TODO: iframeとreplaceWithするか考える
+
 /**
  * This custom element must not have any element as child other than their own iframe element.
  * The children of this custom element must not be empty.
